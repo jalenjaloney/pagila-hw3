@@ -12,3 +12,13 @@
  * There are many ways to solve this problem,
  * but I personally found the INTERSECT operator to make a convenient solution.
  */
+
+SELECT f.title
+FROM film f
+JOIN film_actor fa ON f.film_id = fa.film_id
+JOIN film_actor fa_ref ON fa.actor_id = fa_ref.actor_id
+JOIN film f_ref ON fa_ref.film_id = f_ref.film_id
+WHERE f_ref.title IN ('ACADEMY DINOSAUR', 'AGENT TRUMAN', 'AMERICAN CIRCUS')
+GROUP BY f.title
+HAVING COUNT(DISTINCT f_ref.title) = 3
+ORDER BY f.title;
